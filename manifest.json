@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "Borderify",
+    "name": "Sabdartha",
     "version": "1.0",
 
     "description": "Tw ta laato raixas....",
@@ -11,15 +11,20 @@
     "permissions": [
         "activeTab",
         "webRequest",
-        "https://api.dictionaryapi.dev/api/v2/entries/en/"
+        "https://api.dictionaryapi.dev/api/v2/entries/en/",
+        "tabs",
+        "<all_urls>"
     ],
 
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["Popup/popup.js"]
+            "js": ["./Popup/popup.js"]
         }
     ],
+    "background": {
+        "scripts": ["./background.js"]
+    },
     "web_accessible_resources": ["icons/sabdartha.png"],
     "browser_action": {
         "default_icon": "icons/sabdartha.png",
