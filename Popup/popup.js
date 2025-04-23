@@ -26,6 +26,7 @@ document.addEventListener("mouseup", async (e) => {
     if (text) {
         let searchText = text.split(" ")[0];
         let response = await getMeaning(searchText);
+        // console.log(response);
         if (response) createPopUp(response[0], e.clientX, e.clientY);
         else notFoundPopUp(text, e.clientX, e.clientY);
     }
@@ -41,19 +42,13 @@ function createPopUp(data, x, y) {
     let wordSpan = document.createElement("span");
     let sound = document.createElement("span");
     let meaningBox = document.createElement("div");
-    let partOfSpeechLiteralSpan = document.createElement("span");
-    partOfSpeechLiteralSpan.innerText = "Part Of Speech: ";
-    let partOfSpeechSpan = document.createElement("span");
-    partOfSpeechSpan.innerText = data.meanings[0].partOfSpeech;
     wordSpan.innerText = data.word;
-    popupBox.appendChild(partOfSpeechLiteralSpan);
     popupBox.appendChild(wordSpan);
-    popupBox.appendChild(partOfSpeechSpan);
     let fourMeanings = getFourMeanings(data.meanings);
     let partOfSpeechesDivs = {};
     for (let partOfSpeech of fourMeanings.partOfSpeechs) {
         let container = document.createElement("div");
-        let partOfSpeectLiteralSpan = document.createElement("span");
+        let partOfSpeechLiteralSpan = document.createElement("span");
         partOfSpeechLiteralSpan.innerText = "Part Of Speech";
         let partOfSpeechSpan = document.createElement("span");
         partOfSpeechSpan.innerText = partOfSpeech;
@@ -73,6 +68,7 @@ function createPopUp(data, x, y) {
         exampleSpan.innerText = meaning.example;
         definitionContainer.appendChild(definitionLiteralSpan);
         definitionContainer.appendChild(definitionSpan);
+        // console.log(meaning);
         if (meaning.example !== undefined) {
             definitionContainer.appendChild(exampleLiteralSpan);
             definitionContainer.appendChild(exampleSpan);
@@ -124,6 +120,7 @@ function getFourMeanings(_meanings) {
             meanings.selected.push({
                 partOfSpeech: meaning.partOfSpeech,
                 definition: meaning.definitions[0].definition,
+                example: meaning.definitions[0].example,
             });
         }
         if (meanings.selected.length === 4) break;
@@ -136,6 +133,7 @@ function getFourMeanings(_meanings) {
                 meanings.selected.push({
                     partOfSpeech: meaning.partOfSpeech,
                     definition: meaning.definitions[i].definition,
+                    example: meaning.definitions[i].example,
                 });
                 if (meanings.selected.length === 4) break;
             }
